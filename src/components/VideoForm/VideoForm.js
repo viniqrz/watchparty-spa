@@ -1,8 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import classes from './VideoForm.module.css';
 
 const VideoForm = (props) => {
   const inputRef = useRef('');
+  const [bg, setBg] = useState('');
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -25,6 +26,17 @@ const VideoForm = (props) => {
     // video.load();
   };
 
+  // useEffect(() => {
+
+  // })
+
+  setTimeout(() => {
+    const bgColor = `rgb(${Math.random() * 256},${Math.random() * 256},${
+      Math.random() * 256
+    })`;
+    setBg(bgColor);
+  }, 20000);
+
   return (
     <form className={classes['video-form']}>
       <input
@@ -34,7 +46,12 @@ const VideoForm = (props) => {
         accept='video/*'
         required
       />
-      <button onClick={submitHandler} className='submit' type='submit'>
+      <button
+        style={{ backgroundColor: bg }}
+        onClick={submitHandler}
+        className='submit'
+        type='submit'
+      >
         Special Button made by a Parrot
       </button>
     </form>

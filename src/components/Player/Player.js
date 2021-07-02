@@ -7,6 +7,7 @@ const Player = (props) => {
   const [playerIcon, setPlayerIcon] = useState('fas fa-play');
   const videoRef = useRef('');
   const barRef = useRef('');
+  const volRef = useRef(1);
 
   useEffect(() => {
     videoRef.current.load();
@@ -45,6 +46,10 @@ const Player = (props) => {
     }
   };
 
+  const volumeChangeHandler = () => {
+    videoRef.current.volume = volRef.current.value;
+  };
+
   const timeUpdateHandler = () => {
     const progress = videoRef.current.currentTime / videoRef.current.duration;
     setFillWidth(progress * barRef.current.offsetWidth + 'px');
@@ -78,12 +83,12 @@ const Player = (props) => {
           <div className={classes['control-volume']}>
             <i className='fas fa-volume-down'></i>
             <input
+              onChange={volumeChangeHandler}
               type='range'
-              className='input-volume'
               step='0.05'
               min='0'
               max='1'
-              value='1'
+              ref={volRef}
             />
           </div>
         </div>
