@@ -74,8 +74,3 @@
 .chat-container ul > li:nth-child(odd) {
   background: #efefef;
 }
-
-.chat-container ul > li:nth-child(1) {
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
-}

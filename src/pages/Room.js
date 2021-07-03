@@ -1,6 +1,5 @@
 import Media from './../components/Media/Media';
 import Chat from './../components/Chat/Chat';
-
 import styled from 'styled-components';
 
 const MainContainer = styled.div`

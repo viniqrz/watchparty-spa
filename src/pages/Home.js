@@ -1,10 +1,22 @@
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+
+import { Link, useHistory } from 'react-router-dom';
+
+import { SocketContext } from './../contexts/SocketContext';
 
 const Home = () => {
+  const history = useHistory();
+  const socket = useContext(SocketContext);
+
+  const joinHandler = () => {
+    const room = prompt('Enter your room name');
+    socket.emit('join', room);
+    history.push(`/room/${room}`);
+  };
+
   return (
     <div>
-      <h1>pipoca</h1>
-      <Link to='/room/1212121'>Pipoca</Link>
+      <button onClick={joinHandler}>Join Room</button>
     </div>
   );
 };

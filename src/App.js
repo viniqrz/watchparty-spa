@@ -10,8 +10,12 @@ function App() {
   return (
     <Layout>
       <Switch>
-        <Route path='/' exact component={Home}></Route>
-        <Route path='/room/:roomId' exact component={Room}></Route>
+        <Route path='/' exact>
+          <Home />
+        </Route>
+        <Route path='/room/:roomId' exact>
+          <Room />
+        </Route>
       </Switch>
     </Layout>
   );
