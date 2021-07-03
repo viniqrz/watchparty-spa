@@ -17,8 +17,8 @@ const Chat = () => {
     setMessages([...messages, content]);
   });
 
-  socket.on('joined', () => {
-    setMessages([...messages, 'fulano joined.']);
+  socket.on('joined', (name) => {
+    setMessages([...messages, `${name} joined.`]);
   });
 
   const sendHandler = (e) => {

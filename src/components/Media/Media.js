@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import Player from './../Player/Player';
-import VideoForm from './../VideoForm/VideoForm';
+import Player from './Player/Player';
+import VideoForm from './VideoForm/VideoForm';
 
 import styled from 'styled-components';
 
