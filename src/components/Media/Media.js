@@ -19,6 +19,7 @@ const Media = () => {
   const uploadHandler = (file) => {
     const videoUrl = window.URL.createObjectURL(file);
     setSource(videoUrl);
+    // socket.emit('uploaded', myId, inputVideo.files[0].name);
   };
 
   return (
