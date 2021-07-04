@@ -21,6 +21,10 @@ const Chat = () => {
     setMessages([...messages, `${name} joined.`]);
   });
 
+  socket.on('left', (name) => {
+    setMessages([...messages, `${name} left.`]);
+  });
+
   const sendHandler = (e) => {
     e.preventDefault();
 

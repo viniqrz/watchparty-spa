@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import Player from './Player/Player';
 import VideoForm from './VideoForm/VideoForm';
 
 import styled from 'styled-components';
+
+import { SocketContext } from './../../contexts/SocketContext';
 
 const MediaContainer = styled.div`
   background-color: grey;
@@ -11,6 +13,7 @@ const MediaContainer = styled.div`
 `;
 
 const Media = () => {
+  const socket = useContext(SocketContext);
   const [source, setSource] = useState('');
 
   const uploadHandler = (file) => {

@@ -1,7 +1,9 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useContext } from 'react';
 import classes from './VideoForm.module.css';
+import { SocketContext } from './../../../contexts/SocketContext';
 
 const VideoForm = (props) => {
+  const socket = useContext(SocketContext);
   const inputRef = useRef('');
   const [bg, setBg] = useState('');
 
@@ -14,14 +16,13 @@ const VideoForm = (props) => {
 
     props.onUpload(file);
 
+    socket.emit('uploaded', socket.user, file.name);
     // video.insertAdjacentHTML(
     //   'beforebegin',
     //   `
     //   <h4>You uploaded: ${inputVideo.files[0].name}</h4>
     // `
     // );
-
-    // socket.emit('uploaded', myId, file.name);
 
     // video.load();
   };
