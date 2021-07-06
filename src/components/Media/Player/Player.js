@@ -13,7 +13,8 @@ const Player = (props) => {
 
   const [fillWidth, setFillWidth] = useState();
   const [playerIcon, setPlayerIcon] = useState('fas fa-play');
-  const [actionOwner, setActionOwner] = useState(undefined);
+  // const [actionOwner, setActionOwner] = useState(undefined);
+  // const [data, setData] = useState();
   // const [timeState, setTimeState] = useState(videoRef.currentTime);
 
   // let receivedAction = null;
@@ -35,19 +36,28 @@ const Player = (props) => {
       //   date: Date.now(),
       // };
 
-      socket.emit(
-        'play',
-        videoRef.currentTime,
-        Date.now(),
-        actionOwner || socket.user
-      );
+      // socket.emit(
+      //   'play',
+      //   videoRef.currentTime,
+      //   Date.now(),
+      //   actionOwner || socket.user
+      // );
 
-      setActionOwner(undefined);
+      // setActionOwner(undefined);
     } else {
       setPlayerIcon('fas fa-play');
       videoRef.current.pause();
-      socket.emit('pause', socket.id);
+      // socket.emit('pause', socket.id);
     }
+
+    const localData = {
+      currentTime: videoRef.current.currentTime,
+      isPlaying: !videoRef.current.paused,
+    };
+
+    socket.emit('change', localData, Date.now());
+
+    // setData(localData);
   };
 
   const seekHandler = (e) => {
@@ -60,20 +70,29 @@ const Player = (props) => {
       const relativeProgress = absProgress / barRef.current.offsetWidth;
       videoRef.current.currentTime =
         relativeProgress * videoRef.current.duration;
+
       videoRef.current.play();
+      setPlayerIcon('fas fa-pause');
+
+      const localData = {
+        currentTime: videoRef.current.currentTime,
+        isPlaying: !videoRef.current.paused,
+      };
+
+      socket.emit('change', localData, Date.now());
       // const action = receivedAction || {
       //   id: Math.random().toString().slice(16),
       //   user: socket.user,
       //   date: Date.now(),
       // };
-      socket.emit(
-        'play',
-        videoRef.current.currentTime,
-        Date.now(),
-        actionOwner || socket.user
-      );
+      // socket.emit(
+      //   'play',
+      //   videoRef.current.currentTime,
+      //   Date.now(),
+      //   actionOwner || socket.user
+      // );
 
-      setActionOwner(undefined);
+      // setActionOwner(undefined);
     }
   };
 
@@ -86,28 +105,47 @@ const Player = (props) => {
     setFillWidth(progress * barRef.current.offsetWidth + 'px');
   };
 
-  socket.on('play', (initialTime, initialDate, user) => {
-    setActionOwner(user);
-
-    if (user === socket.user) return;
-
+  socket.on('change', (serverData, actionTime) => {
     if (!props.source) return;
 
-    const currentDate = Date.now();
-    const timeDiff = (currentDate - initialDate) / 1000;
-    videoRef.current.currentTime = initialTime + timeDiff;
+    const now = Date.now();
+    let latency = 0;
 
-    videoRef.current.play();
-    setPlayerIcon('fas fa-pause');
+    if (serverData.isPlaying) {
+      videoRef.current.play();
+      setPlayerIcon('fas fa-pause');
+      latency = (now - actionTime) / 10 ** 3;
+    } else {
+      videoRef.current.pause();
+      setPlayerIcon('fas fa-play');
+    }
+
+    videoRef.current.currentTime = serverData.currentTime + latency;
+    // setData(serverData);
   });
 
-  socket.on('pause', (user) => {
-    if (!props.source) return;
+  // socket.on('play', (initialTime, initialDate, user) => {
+  //   setActionOwner(user);
 
-    videoRef.current.pause();
-    setPlayerIcon('fas fa-play');
-    setActionOwner(undefined);
-  });
+  //   if (user === socket.user) return;
+
+  //   if (!props.source) return;
+
+  //   const currentDate = Date.now();
+  //   const timeDiff = (currentDate - initialDate) / 1000;
+  //   videoRef.current.currentTime = initialTime + timeDiff;
+
+  //   videoRef.current.play();
+  //   setPlayerIcon('fas fa-pause');
+  // });
+
+  // socket.on('pause', (user) => {
+  //   if (!props.source) return;
+
+  //   videoRef.current.pause();
+  //   setPlayerIcon('fas fa-play');
+  //   setActionOwner(undefined);
+  // });
 
   socket.on('uploaded', (user, fileName) => {
     // video.insertAdjacentHTML(
@@ -146,7 +184,11 @@ const Player = (props) => {
         </div>
         <div className={classes['player-buttons']}>
           <button onClick={playHandler} className='my-btn-play'>
-            <i className={playerIcon}></i>
+            <i
+              className={
+                videoRef.current.paused ? 'fas fa-play' : 'fas fa-pause'
+              }
+            ></i>
           </button>
           <div className={classes['control-volume']}>
             <i className='fas fa-volume-down'></i>

@@ -28,10 +28,10 @@
 .chat-container input {
   border: none;
   height: 2rem;
-  flex-grow: 1;
   border-radius: 2rem;
   margin: 0.25rem;
   padding: 0rem 0.5rem;
+  width: 70%;
 }
 
 .chat-container input:focus {
@@ -50,6 +50,10 @@
   color: #fff;
   border-radius: 1rem;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
 }
 
 .chat-container form > button:hover {

@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { SocketContext } from './../contexts/SocketContext';
+import { UserContext } from './../contexts/UserContext';
 
 const Home = () => {
   const history = useHistory();
   const socket = useContext(SocketContext);
+  const auth = useContext(UserContext);
 
   const joinHandler = () => {
     const name = prompt('Enter your name');
@@ -15,9 +17,15 @@ const Home = () => {
     history.push(`/room/${room}`);
   };
 
+  const signInHandler = () => {
+    auth.signIn();
+    console.log(auth.user);
+  };
+
   return (
     <div>
       <button onClick={joinHandler}>Join Room</button>
+      <button onClick={signInHandler}>ABC</button>
     </div>
   );
 };
