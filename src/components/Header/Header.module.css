@@ -33,3 +33,15 @@
 .main-header ul li *:hover {
   background-color: rgba(1, 1, 1, 0.2);
 }
+
+.user-greeting {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.user-greeting img {
+  width: 25%;
+  border-radius: 100%;
+  border: 2px solid tomato;
+}

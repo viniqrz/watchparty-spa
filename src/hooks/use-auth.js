@@ -7,10 +7,17 @@ provider.addScope('profile');
 provider.addScope('email');
 
 const useAuth = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(false);
+
+  if (user) {
+    firebase
+      .database()
+      .ref('users/' + user.id)
+      .set(user);
+  }
 
   const signIn = () => {
-    firebase
+    return firebase
       .auth()
       .signInWithPopup(provider)
       .then(function (result) {
@@ -18,12 +25,14 @@ const useAuth = () => {
         // var token = result.credential.accessToken;
         // The signed-in user info.
         // const user = result.user;
-
-        setUser({
+        const currentUser = {
           name: result.user.displayName,
           photo: result.user.photoURL,
           id: result.user.uid,
-        });
+          email: result.user.email,
+        };
+
+        setUser(currentUser);
       })
       .catch((err) => {
         alert(err.message);
@@ -37,6 +46,7 @@ const useAuth = () => {
           name: signedUser.displayName,
           photo: signedUser.photoURL,
           id: signedUser.uid,
+          email: signedUser.email,
         });
       } else {
         setUser(false);

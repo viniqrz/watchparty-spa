@@ -17,9 +17,13 @@ const Home = () => {
     history.push(`/room/${room}`);
   };
 
+  if (auth.user) {
+    history.push('/room/new');
+  }
+
   const signInHandler = () => {
-    auth.signIn();
-    console.log(auth.user);
+    // auth.signIn();
+    if (auth.signIn()) history.push('/room/new');
   };
 
   return (

@@ -6,15 +6,18 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import SocketProvider from './contexts/SocketContext';
 import UserProvider from './contexts/UserContext';
+import RoomProvider from './contexts/RoomContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserProvider>
-        <SocketProvider>
-          <App />
-        </SocketProvider>
-      </UserProvider>
+      <RoomProvider>
+        <UserProvider>
+          <SocketProvider>
+            <App />
+          </SocketProvider>
+        </UserProvider>
+      </RoomProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
