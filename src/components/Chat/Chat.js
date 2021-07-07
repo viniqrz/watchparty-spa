@@ -2,6 +2,8 @@ import classes from './Chat.module.css';
 import { useRef, useState, useContext } from 'react';
 
 import { SocketContext } from './../../contexts/SocketContext';
+import { UserContext } from './../../contexts/UserContext';
+import { RoomContext } from './../../contexts/RoomContext';
 
 import MessagesList from './MessagesList';
 
@@ -12,26 +14,39 @@ const Chat = () => {
   const inputRef = useRef('');
 
   const socket = useContext(SocketContext);
+  const auth = useContext(UserContext);
+  const room = useContext(RoomContext);
 
   socket.on('message', (content) => {
     setMessages([...messages, content]);
   });
 
   socket.on('joined', (name) => {
-    setMessages([...messages, `${name} joined.`]);
+    setMessages([...messages, { author: name, content: 'joined.' }]);
   });
 
   socket.on('left', (name) => {
-    setMessages([...messages, `${name} left.`]);
+    setMessages([...messages, { author: name, content: 'left.' }]);
   });
 
   const sendHandler = (e) => {
     e.preventDefault();
 
-    if (inputRef.current.value.length >= 240) return;
+    if (inputState.length >= 240 || inputState.length < 1) return;
 
-    setMessages([...messages, inputRef.current.value]);
-    socket.emit('message', inputRef.current.value);
+    setMessages([
+      ...messages,
+      {
+        isOwner: auth.user.id === room.state.owner,
+        author: auth.user.name,
+        content: inputState,
+      },
+    ]);
+    socket.emit('message', {
+      isOwner: auth.user.id === room.state.owner,
+      author: auth.user.name,
+      content: inputState,
+    });
 
     setInputState('');
   };
@@ -39,6 +54,13 @@ const Chat = () => {
   const typeHandler = () => {
     setInputState(inputRef.current.value);
   };
+
+  // const getRef = (ulRef, liRef) => {
+  //   ulRef.current.scrollTo(
+  //     0,
+  //     ulRef.current.scrollHeight + liRef.current.offsetHeight
+  //   );
+  // };
 
   return (
     <div className={classes['chat-container']}>

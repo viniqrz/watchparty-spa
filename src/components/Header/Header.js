@@ -4,10 +4,17 @@ import { Link } from 'react-router-dom';
 import { SocketContext } from '../../contexts/SocketContext';
 
 import { UserContext } from '../../contexts/UserContext';
+import { RoomContext } from '../../contexts/RoomContext';
+import { useLocation } from 'react-router';
 
 const Header = () => {
+  const room = useContext(RoomContext);
   const auth = useContext(UserContext);
   const socket = useContext(SocketContext);
+
+  const getInvitationHandler = () => {
+    console.log(1);
+  };
 
   return (
     <header className={classes['main-header']}>
@@ -21,13 +28,14 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <a href='/'>
-              <p>Home</p>
-            </a>
+            <a href='/'>Home</a>
           </li>
-          <li>
-            <p>Invite</p>
-          </li>
+          {room.state && (
+            <li className={classes['invite']} onClick={getInvitationHandler}>
+              <i className='fas fa-link'></i>
+              <p>Invite Friends</p>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

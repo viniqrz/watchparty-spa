@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from 'react';
 
 import Media from './../components/Media/Media';
 import Chat from './../components/Chat/Chat';
@@ -10,7 +16,7 @@ import firebase from './../services/firebase';
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import { RoomContext } from '../contexts/RoomContext';
-import { div } from 'prelude-ls';
+import { SocketContext } from '../contexts/SocketContext';
 
 const MainContainer = styled.div`
   background-color: tomato;
@@ -27,18 +33,19 @@ const Container = styled.div`
 `;
 
 const Room = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  // const [room, setRoom] = useState();
-  const dbRef = firebase.database().ref();
-
-  const user = useContext(UserContext);
+  const socket = useContext(SocketContext);
+  const auth = useContext(UserContext);
   const room = useContext(RoomContext);
   const params = useParams();
+  const joinedRef = useRef(false);
 
   const { roomId } = params;
 
   if (!room.state) {
     room.getRoom(roomId);
+  } else if (!joinedRef.current) {
+    socket.emit('join', roomId, auth.user.name);
+    joinedRef.current = true;
   }
 
   return (

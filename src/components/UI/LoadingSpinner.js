@@ -9,10 +9,10 @@ const LoadingSpinner = () => {
         cy='5rem'
         r='4rem'
         stroke='pink'
-        stroke-width='10'
+        strokeWidth='10'
         fill='rgba(1,1,1,0)'
-        stroke-linecap='round'
-        stroke-dasharray='16rem'
+        strokeLinecap='round'
+        strokeDasharray='16rem'
       ></circle>
     </svg>
   );

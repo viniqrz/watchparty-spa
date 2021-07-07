@@ -40,7 +40,7 @@ const RoomProvider = (props) => {
         .get()
         .then((snapshot) => {
           if (snapshot.exists()) {
-            console.log(snapshot.val());
+            // console.log(snapshot.val());
             setRoomState(snapshot.val());
           } else {
             console.log('No data available');

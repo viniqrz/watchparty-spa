@@ -20,7 +20,7 @@ const NewRoom = () => {
 
     room.createRoom(
       nameInputRef.current.value,
-      auth.user.name,
+      auth.user.id,
       privateInputRef.current.checked
     );
   };
