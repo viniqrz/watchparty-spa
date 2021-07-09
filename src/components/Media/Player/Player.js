@@ -13,11 +13,6 @@ const Player = (props) => {
 
   const [fillWidth, setFillWidth] = useState();
   const [playerIcon, setPlayerIcon] = useState('fas fa-play');
-  // const [actionOwner, setActionOwner] = useState(undefined);
-  // const [data, setData] = useState();
-  // const [timeState, setTimeState] = useState(videoRef.currentTime);
-
-  // let receivedAction = null;
 
   useEffect(() => {
     videoRef.current.load();
@@ -27,27 +22,9 @@ const Player = (props) => {
     if (!props.source) return;
 
     if (videoRef.current.paused) {
-      setPlayerIcon('fas fa-pause');
-      videoRef.current.play();
-
-      // const action = receivedAction || {
-      //   id: Math.random().toString().slice(16),
-      //   user: socket.id,
-      //   date: Date.now(),
-      // };
-
-      // socket.emit(
-      //   'play',
-      //   videoRef.currentTime,
-      //   Date.now(),
-      //   actionOwner || socket.user
-      // );
-
-      // setActionOwner(undefined);
-    } else {
-      setPlayerIcon('fas fa-play');
+      videoRef.current.play()
+    } else 
       videoRef.current.pause();
-      // socket.emit('pause', socket.id);
     }
 
     const localData = {
@@ -55,9 +32,7 @@ const Player = (props) => {
       isPlaying: !videoRef.current.paused,
     };
 
-    socket.emit('change', localData, Date.now());
-
-    // setData(localData);
+    socket.emit('change', localData, Date.now())
   };
 
   const seekHandler = (e) => {
@@ -72,7 +47,6 @@ const Player = (props) => {
         relativeProgress * videoRef.current.duration;
 
       videoRef.current.play();
-      setPlayerIcon('fas fa-pause');
 
       const localData = {
         currentTime: videoRef.current.currentTime,
@@ -80,19 +54,6 @@ const Player = (props) => {
       };
 
       socket.emit('change', localData, Date.now());
-      // const action = receivedAction || {
-      //   id: Math.random().toString().slice(16),
-      //   user: socket.user,
-      //   date: Date.now(),
-      // };
-      // socket.emit(
-      //   'play',
-      //   videoRef.current.currentTime,
-      //   Date.now(),
-      //   actionOwner || socket.user
-      // );
-
-      // setActionOwner(undefined);
     }
   };
 
@@ -117,7 +78,6 @@ const Player = (props) => {
       latency = (now - actionTime) / 10 ** 3;
     } else {
       videoRef.current.pause();
-      setPlayerIcon('fas fa-play');
     }
 
     videoRef.current.currentTime = serverData.currentTime + latency;
