@@ -28,7 +28,7 @@ const Header = () => {
           {room.state && (
             <li className={classes['invite']} onClick={getInvitationHandler}>
               <i className='fas fa-link'></i>
-              <p>Invite Friends</p>
+              <p>Get Link</p>
             </li>
           )}
         </ul>

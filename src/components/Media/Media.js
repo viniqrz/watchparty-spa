@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { SocketContext } from './../../contexts/SocketContext';
 
 const MediaContainer = styled.div`
-  background-color: grey;
+  background-color: #444647;
   width: 100%;
 `;
 

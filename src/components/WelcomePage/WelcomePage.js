@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
 
@@ -12,10 +12,17 @@ import video from './../../welcomeVideo.mp4';
 const WelcomePage = () => {
   const history = useHistory();
   const auth = useContext(UserContext);
+  const [user, setUser] = useState();
+
+  setTimeout(() => {
+    if (auth.user) {
+      history.push('/room/new');
+    }
+  }, 1000);
 
   const signInHandler = () => {
-    auth.signIn();
-    if (auth.signIn()) history.push('/room/new');
+    setUser(auth.signIn());
+    if (auth.user) history.push('/room/new');
   };
 
   return (
@@ -34,7 +41,7 @@ const WelcomePage = () => {
           Ex, ad cum sapiente reiciendis voluptate.
         </p>
         <div className={classes['sign-in']}>
-          <Button onClick={signInHandler} className='primary'>
+          <Button className={classes['btn-home']} onClick={signInHandler}>
             <i className='fab fa-google'></i>
             <span>Sign In with Google</span>
           </Button>

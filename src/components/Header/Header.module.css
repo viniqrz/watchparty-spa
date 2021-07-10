@@ -21,6 +21,7 @@
 .main-header ul li {
   font-size: 1.4rem;
   display: flex;
+  margin-left: 6px;
   /* cursor: pointer; */
   /* padding: 0.5rem 3rem; */
 }
@@ -29,7 +30,7 @@
   display: flex;
   align-items: center;
   color: #292b2c;
-  padding: 0.5rem 3rem;
+  padding: 0.5rem 2.2rem;
   background-color: #f0ad4e;
   /* transition: all 1s; */
 }
@@ -38,7 +39,7 @@
   background-color: #292b2c;
   color: #f0ad4e;
   border: 0.2rem solid #f0ad4e;
-  padding: 0.3rem 2.8rem;
+  padding: 0.3rem 2rem;
 }
 
 .main-header ul li p {
@@ -56,11 +57,24 @@
 .invite {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  background-color: #f0ad4e;
+  color: #292b2c;
+  cursor: pointer;
+  /* color: #292b2c; */
+  /* padding: 0.5rem 3rem; */
+  width: 9rem;
+}
+
+.invite:hover {
+  background-color: #292b2c;
+  color: #f0ad4e;
+  border: 0.2rem solid #f0ad4e;
+  /* padding: 0.3rem 2.8rem; */
 }
 
 .invite * {
-  margin: 0.2rem;
+  /* margin: 0.2rem; */
 }
 
 @keyframes appear {

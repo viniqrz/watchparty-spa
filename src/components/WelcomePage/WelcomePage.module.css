@@ -16,32 +16,20 @@
   color: black;
 }
 
-button {
+.main button {
   background-color: #f0ad4e;
   color: black;
   transition: all 0.3s;
-  box-shadow: 5px 3px 35px 5px rgba(0, 0, 0, 0.445);
+  /* box-shadow: 5px 3px 35px 5px rgba(0, 0, 0, 0.445); */
   /* animation: appear 1s forwards; */
 }
 
-button:hover {
+.main button:hover {
   background-color: #292b2c;
   color: #f0ad4e;
   border: 0.2rem solid #f0ad4e;
   transform: scale(1.1);
   /* padding: 0.3rem 2.8rem; */
-}
-
-.sign-in {
-  margin: 0 auto;
-  /* background-color: whitesmoke; */
-  border-radius: 10px;
-  padding: 2rem;
-  max-width: 90%;
-  width: 25rem;
-  display: flex;
-  justify-content: center;
-  box-shadow: 5px 3px 35px 5px rgba(0, 0, 0, 0);
 }
 
 .content-container {
@@ -81,10 +69,14 @@ button:hover {
 
 .content-container p {
   width: 60%;
-  margin: 0.8rem auto;
+  margin: 1.5rem auto;
   text-align: justify;
   font-size: 24px;
   line-height: 3rem;
+}
+
+.content-container button {
+  margin: 0 auto;
 }
 
 @media (max-width: 1010px) {

@@ -22,6 +22,7 @@ const MainContainer = styled.div`
   background-color: tomato;
   display: flex;
   justify-content: space-between;
+  padding-top: 5rem;
 `;
 
 const Container = styled.div`
