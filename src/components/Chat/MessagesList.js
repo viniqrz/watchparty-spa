@@ -3,8 +3,9 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 const IconContainer = styled.div`
-  background-color: blue;
+  background-color: #6fb4d6;
   color: white;
+  padding: 0px 2px;
 `;
 
 const MessagesList = (props) => {

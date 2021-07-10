@@ -5,6 +5,8 @@ import { SocketContext } from './../../contexts/SocketContext';
 import { UserContext } from './../../contexts/UserContext';
 import { RoomContext } from './../../contexts/RoomContext';
 
+import Button from '../UI/Button';
+
 import MessagesList from './MessagesList';
 
 const Chat = () => {
