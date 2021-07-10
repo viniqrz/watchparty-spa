@@ -1,3 +1,30 @@
+.info-container {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-container div {
+  display: flex;
+  align-items: center;
+  background-color: rgba(245, 245, 245, 0.192);
+}
+
+.info-container h2 {
+  font-size: 21px;
+  font-weight: 400;
+  margin-left: 1rem;
+}
+
+.info-container img {
+  width: 2rem;
+}
+
+.info-container * {
+  /* margin: 0 0.8rem; */
+}
+
 .video-form {
   width: 70%;
   margin: 1rem auto;

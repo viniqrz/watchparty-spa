@@ -10,6 +10,9 @@ import { SocketContext } from './../../contexts/SocketContext';
 const MediaContainer = styled.div`
   background-color: #444647;
   width: 100%;
+  overflow-y: scroll;
+  padding-right: 20%;
+  height: 100vh;
 `;
 
 const Media = () => {

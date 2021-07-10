@@ -1,25 +1,41 @@
 .player-container {
   width: 70%;
-  background-color: darkslategray;
+  background-color: #292b2c;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  margin-bottom: 3rem;
+  transition: all 1s;
 }
 
 .player-controls {
   height: 2.4rem;
-  background-color: darkslateblue;
+  background-color: #292b2c;
   opacity: 1;
   width: 100%;
 }
 
+.player-controls-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: tomato; */
+  max-width: 10rem;
+  width: 100%;
+}
+
+.player-controls-right:hover button {
+  transform: scale(1.2);
+}
+
 .player-buttons {
+  z-index: 20;
   height: 70%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-left: 2%;
-  padding-right: 10%;
+  padding-right: 2%;
 }
 
 .player-buttons button {
@@ -48,17 +64,44 @@
 }
 
 .progress-bar {
-  background-color: rgb(47, 42, 85);
-  height: 30%;
+  background-color: #1d2c2c;
+  height: 15%;
   cursor: pointer;
+  transition: all 0.3s;
+  z-index: 10;
+  margin-bottom: 0.21rem;
+}
+
+.progress-bar:hover {
+  height: 30%;
+  transform: translateY(-0.21rem);
+  margin-bottom: 0rem;
 }
 
 .progress-bar-fill {
-  background-color: aqua;
+  background-color: #f0ad4e;
   height: 100%;
   transition: all 0.1s;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   overflow: visible;
+  transition: all 0.6s;
+}
+
+.btn-play {
+  transition: all 0.3s;
+}
+
+.btn-play:hover {
+  transform: scale(1.2);
+}
+
+.volume-button {
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.volume-button:hover {
+  transform: scale(1.2);
 }

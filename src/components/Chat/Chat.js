@@ -32,9 +32,9 @@ const Chat = () => {
   });
 
   const sendHandler = (e) => {
-    e.preventDefault();
+    if (e.key !== 'Enter') return;
 
-    if (inputState.length >= 240 || inputState.length < 1) return;
+    if (inputState.length < 1) return;
 
     setMessages([
       ...messages,
@@ -50,7 +50,7 @@ const Chat = () => {
       content: inputState,
     });
 
-    setInputState('');
+    inputRef.current.value = '';
   };
 
   const typeHandler = () => {
@@ -68,17 +68,24 @@ const Chat = () => {
     <div className={classes['chat-container']}>
       <MessagesList messages={messages} />
       <form id='form' action=''>
-        <input
+        {/* <input
           onChange={typeHandler}
           value={inputState}
           ref={inputRef}
           id='input'
           type='text'
           autoComplete='off'
-        />
-        <button onClick={sendHandler} type='submit'>
+        /> */}
+        <textarea
+          onChange={typeHandler}
+          onKeyPress={sendHandler}
+          ref={inputRef}
+          rows='3'
+          placeHolder='Send your message.'
+        ></textarea>
+        {/* <button onClick={sendHandler} type='submit'>
           Send
-        </button>
+        </button> */}
       </form>
     </div>
   );

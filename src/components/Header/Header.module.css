@@ -15,7 +15,8 @@
   list-style: none;
   display: flex;
   align-self: center;
-  /* background-color: #f0ad4e; */
+  /* width: 18rem; */
+  /* background-color: tomato; */
 }
 
 .main-header ul li {
@@ -32,14 +33,14 @@
   color: #292b2c;
   padding: 0.5rem 2.2rem;
   background-color: #f0ad4e;
-  /* transition: all 1s; */
+  transition: all 0.3s;
 }
 
 .main-header ul li a:hover {
-  background-color: #292b2c;
+  background-color: #4e4e4e;
   color: #f0ad4e;
-  border: 0.2rem solid #f0ad4e;
-  padding: 0.3rem 2rem;
+  /* border: 0.2rem solid #f0ad4e; */
+  /* padding: 0.3rem 2rem; */
 }
 
 .main-header ul li p {
@@ -63,13 +64,14 @@
   cursor: pointer;
   /* color: #292b2c; */
   /* padding: 0.5rem 3rem; */
+  transition: all 0.3s;
   width: 9rem;
 }
 
 .invite:hover {
-  background-color: #292b2c;
+  background-color: #4e4e4e;
   color: #f0ad4e;
-  border: 0.2rem solid #f0ad4e;
+  /* border: 0.2rem solid #f0ad4e; */
   /* padding: 0.3rem 2.8rem; */
 }
 

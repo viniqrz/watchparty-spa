@@ -8,7 +8,7 @@ const LoadingSpinner = () => {
         cx='5rem'
         cy='5rem'
         r='4rem'
-        stroke='pink'
+        stroke='rgba(1,1,1,0.75)'
         strokeWidth='10'
         fill='rgba(1,1,1,0)'
         strokeLinecap='round'

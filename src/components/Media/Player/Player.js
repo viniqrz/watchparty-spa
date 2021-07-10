@@ -8,11 +8,12 @@ const Player = (props) => {
   const socket = useContext(SocketContext);
 
   const videoRef = useRef('');
+  const videoContainerRef = useRef('');
   const barRef = useRef('');
   const volRef = useRef(1);
 
   const [fillWidth, setFillWidth] = useState();
-  const [playerIcon, setPlayerIcon] = useState('fas fa-play');
+  const [volState, setVolState] = useState(1);
 
   useEffect(() => {
     videoRef.current.load();
@@ -34,6 +35,8 @@ const Player = (props) => {
   socket.emit('change', localData, Date.now());
 
   const seekHandler = (e) => {
+    if (!props.source) return;
+
     const barX0 = barRef.current.getBoundingClientRect().left;
     const barX1 =
       barRef.current.getBoundingClientRect().left + barRef.current.offsetWidth;
@@ -57,9 +60,12 @@ const Player = (props) => {
 
   const volumeChangeHandler = () => {
     videoRef.current.volume = volRef.current.value;
+    setVolState(volRef.current.value);
   };
 
   const timeUpdateHandler = () => {
+    if (!props.source) return;
+
     const progress = videoRef.current.currentTime / videoRef.current.duration;
     setFillWidth(progress * barRef.current.offsetWidth + 'px');
   };
@@ -72,7 +78,6 @@ const Player = (props) => {
 
     if (serverData.isPlaying) {
       videoRef.current.play();
-      setPlayerIcon('fas fa-pause');
       latency = (now - actionTime) / 10 ** 3;
     } else {
       videoRef.current.pause();
@@ -95,8 +100,35 @@ const Player = (props) => {
     videoRef.current.pause();
   });
 
+  const muteHandler = () => {
+    if (volRef.current.value === '0') {
+      volRef.current.value = 1;
+      setVolState(volRef.current.value);
+    } else {
+      volRef.current.value = 0;
+      setVolState(volRef.current.value);
+    }
+  };
+
+  const fullscreenHandler = () => {
+    // if (!props.source) return;
+
+    // const video = videoRef.current;
+    // if (video.requestFullscreen) {
+    //   video.requestFullscreen();
+    // }
+
+    if (!videoContainerRef.current) return;
+
+    if (videoContainerRef.current.style.width !== '85%') {
+      videoContainerRef.current.style.width = 85 + '%';
+    } else {
+      videoContainerRef.current.style.width = 70 + '%';
+    }
+  };
+
   return (
-    <div className={classes['player-container']}>
+    <div ref={videoContainerRef} className={classes['player-container']}>
       <video
         ref={videoRef}
         onTimeUpdate={timeUpdateHandler}
@@ -117,23 +149,37 @@ const Player = (props) => {
           ></div>
         </div>
         <div className={classes['player-buttons']}>
-          <button onClick={playHandler} className='my-btn-play'>
+          <button onClick={playHandler} className={classes['btn-play']}>
             <i
               className={
                 videoRef.current.paused ? 'fas fa-play' : 'fas fa-pause'
               }
             ></i>
           </button>
-          <div className={classes['control-volume']}>
-            <i className='fas fa-volume-down'></i>
-            <input
-              onChange={volumeChangeHandler}
-              type='range'
-              step='0.05'
-              min='0'
-              max='1'
-              ref={volRef}
-            />
+          <div className={classes['player-controls-right']}>
+            <div className={classes['control-volume']}>
+              <span className={classes['volume-button']}>
+                <i
+                  onClick={muteHandler}
+                  className={
+                    volState !== '0'
+                      ? 'fas fa-volume-down'
+                      : 'fas fa-volume-mute'
+                  }
+                ></i>
+              </span>
+              <input
+                onChange={volumeChangeHandler}
+                type='range'
+                step='0.05'
+                min='0'
+                max='1'
+                ref={volRef}
+              />
+            </div>
+            <button onClick={fullscreenHandler}>
+              <i class='fas fa-expand'></i>
+            </button>
           </div>
         </div>
       </div>

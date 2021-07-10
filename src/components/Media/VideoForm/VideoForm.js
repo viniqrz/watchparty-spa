@@ -1,11 +1,14 @@
 import { useRef, useState, useContext } from 'react';
 import classes from './VideoForm.module.css';
 import { SocketContext } from './../../../contexts/SocketContext';
+import { UserContext } from './../../../contexts/UserContext';
 
 const VideoForm = (props) => {
   const socket = useContext(SocketContext);
+  const auth = useContext(UserContext);
   const inputRef = useRef('');
-  const [bg, setBg] = useState('');
+  const btnRef = useRef('');
+  const [source, setSource] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -17,6 +20,8 @@ const VideoForm = (props) => {
     props.onUpload(file);
 
     socket.emit('uploaded', socket.user, file.name);
+
+    setSource(file.name);
     // video.insertAdjacentHTML(
     //   'beforebegin',
     //   `
@@ -27,30 +32,57 @@ const VideoForm = (props) => {
     // video.load();
   };
 
-  // useEffect(() => {
+  setInterval(() => {
+    const bgColor = `rgb(${Math.random() * 256},${Math.random() * 256},${
+      Math.random() * 256
+    })`;
+    if (!btnRef.current) return;
 
-  // })
-
-  // setTimeout(() => {
-  //   const bgColor = `rgb(${Math.random() * 256},${Math.random() * 256},${
-  //     Math.random() * 256
-  //   })`;
-  //   // setBg(bgColor);
-  // }, 1000);
+    btnRef.current.style.backgroundColor = bgColor;
+  }, 1000);
 
   return (
-    <form className={classes['video-form']}>
-      <input
-        ref={inputRef}
-        className='input-video'
-        type='file'
-        accept='video/*'
-        required
-      />
-      <button onClick={submitHandler} className='submit' type='submit'>
-        Special Button made by a Parrot
-      </button>
-    </form>
+    <div>
+      {source && (
+        <div className={classes['info-container']}>
+          <div>
+            <img src={auth.user.photo} alt='avatar' />
+            <h2>
+              {auth.user.name} uploaded {source}
+            </h2>
+          </div>
+          {/* <div>
+            <img src={auth.user.photo} alt='avatar' />
+            <h2>
+              {auth.user.name} uploaded {source}
+            </h2>
+          </div>
+          <div>
+            <img src={auth.user.photo} alt='avatar' />
+            <h2>
+              {auth.user.name} uploaded {source}
+            </h2>
+          </div>  */}
+        </div>
+      )}
+      <form className={classes['video-form']}>
+        <input
+          ref={inputRef}
+          className='input-video'
+          type='file'
+          accept='video/*'
+          required
+        />
+        <button
+          ref={btnRef}
+          onClick={submitHandler}
+          className='submit'
+          type='submit'
+        >
+          Special Button made by a Parrot
+        </button>
+      </form>
+    </div>
   );
 };
 

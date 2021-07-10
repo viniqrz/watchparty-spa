@@ -1,11 +1,18 @@
 import React, { useRef } from 'react';
 
+import './MessagesList.css';
+
 import styled from 'styled-components';
 
-const IconContainer = styled.div`
+const IconContainer = styled.span`
   background-color: #6fb4d6;
   color: white;
   padding: 0px 2px;
+  width: 1.4rem;
+  height: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const MessagesList = (props) => {
@@ -25,25 +32,27 @@ const MessagesList = (props) => {
   // if (ulRef) props.onRefChange(ulRef, liRef);
 
   return (
-    <ul ref={ulRef} id='messages'>
+    <div ref={ulRef} id='messages'>
       {props.messages.map((message) => {
         return (
-          <li ref={liRef}>
+          <div className='message-container' ref={liRef}>
             <p>
               {message.isOwner && (
-                <IconContainer>
+                <span className='icon-container'>
                   <i
                     style={{ fontSize: 16 + 'px' }}
-                    class='fas fa-chess-king'
+                    className='fas fa-chess-king'
                   ></i>
-                </IconContainer>
+                </span>
               )}
-              <b> {message.author}</b> {'   ' + message.content}
+              <b> {message.author}</b>
+              {'   ' + message.content}
             </p>
-          </li>
+            {/* <p>{message.content}</p> */}
+          </div>
         );
       })}
-    </ul>
+    </div>
   );
 };
 
