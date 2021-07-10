@@ -17,7 +17,6 @@ const Header = () => {
       <h1>WatchParty</h1>
       {auth.user && (
         <div className={classes['user-greeting']}>
-          <img src={auth.user.photo} alt='' />
           <h3>Welcome, {auth.user.name}.</h3>
         </div>
       )}

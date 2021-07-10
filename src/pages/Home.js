@@ -5,21 +5,17 @@ import { useHistory } from 'react-router-dom';
 import { SocketContext } from './../contexts/SocketContext';
 import { UserContext } from './../contexts/UserContext';
 
+import Button from './../components/UI/Button';
+import WelcomePage from './../components/WelcomePage/WelcomePage';
+
 const Home = () => {
   const history = useHistory();
   const socket = useContext(SocketContext);
   const auth = useContext(UserContext);
 
-  const joinHandler = () => {
-    const name = prompt('Enter your name');
-    const room = prompt('Enter your room name');
-    socket.emit('join', room, name);
-    history.push(`/room/${room}`);
-  };
-
-  if (auth.user) {
-    history.push('/room/new');
-  }
+  // if (auth.user) {
+  //   history.push('/room/new');
+  // }
 
   const signInHandler = () => {
     // auth.signIn();
@@ -28,8 +24,7 @@ const Home = () => {
 
   return (
     <div>
-      <button onClick={joinHandler}>Join Room</button>
-      <button onClick={signInHandler}>ABC</button>
+      <WelcomePage />
     </div>
   );
 };
