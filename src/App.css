@@ -5,6 +5,13 @@
   font-family: 'Poppins', sans-serif;
 }
 
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+}
+
 .App {
   text-align: center;
 }

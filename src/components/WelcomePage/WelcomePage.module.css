@@ -19,6 +19,17 @@
 button {
   background-color: #f0ad4e;
   color: black;
+  transition: all 0.3s;
+  box-shadow: 5px 3px 35px 5px rgba(0, 0, 0, 0.445);
+  /* animation: appear 1s forwards; */
+}
+
+button:hover {
+  background-color: #292b2c;
+  color: #f0ad4e;
+  border: 0.2rem solid #f0ad4e;
+  transform: scale(1.1);
+  /* padding: 0.3rem 2.8rem; */
 }
 
 .sign-in {
@@ -30,7 +41,7 @@ button {
   width: 25rem;
   display: flex;
   justify-content: center;
-  box-shadow: 5px 3px 35px 5px rgba(0, 0, 0, 0.144);
+  box-shadow: 5px 3px 35px 5px rgba(0, 0, 0, 0);
 }
 
 .content-container {
@@ -53,11 +64,19 @@ button {
   overflow: hidden;
 }
 
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+}
+
 .content-container h1 {
   text-align: center;
   margin: 1.5rem;
   font-size: 64px;
   font-weight: 400;
+  animation: appear 1s forwards;
 }
 
 .content-container p {

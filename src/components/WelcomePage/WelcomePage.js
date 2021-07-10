@@ -1,9 +1,23 @@
+import { useContext } from 'react';
+
+import { useHistory } from 'react-router-dom';
+
+import { UserContext } from './../../contexts/UserContext';
+
 import Button from './../UI/Button';
 
 import classes from './WelcomePage.module.css';
 import video from './../../welcomeVideo.mp4';
 
 const WelcomePage = () => {
+  const history = useHistory();
+  const auth = useContext(UserContext);
+
+  const signInHandler = () => {
+    auth.signIn();
+    if (auth.signIn()) history.push('/room/new');
+  };
+
   return (
     <div className={classes['main']}>
       <video autoPlay loop muted>
@@ -20,7 +34,7 @@ const WelcomePage = () => {
           Ex, ad cum sapiente reiciendis voluptate.
         </p>
         <div className={classes['sign-in']}>
-          <Button className='primary'>
+          <Button onClick={signInHandler} className='primary'>
             <i className='fab fa-google'></i>
             <span>Sign In with Google</span>
           </Button>

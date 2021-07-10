@@ -15,20 +15,30 @@
   list-style: none;
   display: flex;
   align-self: center;
-  background-color: #f0ad4e;
+  /* background-color: #f0ad4e; */
 }
 
 .main-header ul li {
   font-size: 1.4rem;
   display: flex;
-  cursor: pointer;
-  padding: 0.5rem 3rem;
+  /* cursor: pointer; */
+  /* padding: 0.5rem 3rem; */
 }
 
 .main-header ul li a {
   display: flex;
   align-items: center;
-  color: black;
+  color: #292b2c;
+  padding: 0.5rem 3rem;
+  background-color: #f0ad4e;
+  /* transition: all 1s; */
+}
+
+.main-header ul li a:hover {
+  background-color: #292b2c;
+  color: #f0ad4e;
+  border: 0.2rem solid #f0ad4e;
+  padding: 0.3rem 2.8rem;
 }
 
 .main-header ul li p {
@@ -39,9 +49,9 @@
   text-decoration: none;
 }
 
-.main-header ul li:hover {
-  background-color: rgba(1, 1, 1, 0.2);
-}
+/* .main-header ul li:hover {
+  background-color: pink;
+} */
 
 .invite {
   display: flex;
@@ -53,12 +63,20 @@
   margin: 0.2rem;
 }
 
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+}
+
 .user-greeting {
   display: flex;
   justify-content: space-around;
   align-items: center;
   font-weight: normal;
   width: fit-content;
+  animation: appear 1s forwards;
 }
 
 .main-header h1 {

@@ -16,6 +16,11 @@
   color: black;
 }
 
+.primary:hover {
+  background-color: black;
+  color: #f0ad4e;
+}
+
 .btn * {
   margin: 0 6px;
 }
