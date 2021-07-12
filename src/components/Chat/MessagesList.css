@@ -1,0 +1,45 @@
+#messages {
+  overflow-y: scroll;
+  width: 100%;
+  min-height: calc(100vh - 10rem);
+}
+
+#messages div:nth-child(odd) {
+  background-color: rgba(245, 245, 245, 0.041);
+}
+
+.message-container p {
+  padding: 0.5rem 0.4rem;
+  width: 100%;
+  word-break: break-all;
+}
+
+.message-container p *:not(i) {
+  margin-right: 4px;
+}
+
+.icon-container {
+  background-color: #6fb4d6;
+  color: white;
+  width: 1.4rem;
+  height: 1.4rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#messages::-webkit-scrollbar {
+  width: 7px;
+}
+
+#messages::-webkit-scrollbar-track {
+  background: #4e4e4e8f;
+}
+
+#messages::-webkit-scrollbar-thumb {
+  background: #292b2c8e;
+}
+
+#messages::-webkit-scrollbar-thumb:hover {
+  background: #545555a6;
+}

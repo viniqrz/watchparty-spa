@@ -17,6 +17,8 @@ const Player = (props) => {
 
   useEffect(() => {
     videoRef.current.load();
+
+    // socket.emit('getData');
   }, [props.source]);
 
   const playHandler = () => {
@@ -25,14 +27,14 @@ const Player = (props) => {
     if (videoRef.current.paused) {
       videoRef.current.play();
     } else videoRef.current.pause();
-  };
 
-  const localData = {
-    currentTime: videoRef.current.currentTime,
-    isPlaying: !videoRef.current.paused,
-  };
+    const localData = {
+      currentTime: videoRef.current.currentTime,
+      isPlaying: !videoRef.current.paused,
+    };
 
-  socket.emit('change', localData, Date.now());
+    socket.emit('change', localData, Date.now());
+  };
 
   const seekHandler = (e) => {
     if (!props.source) return;
@@ -61,6 +63,17 @@ const Player = (props) => {
   const volumeChangeHandler = () => {
     videoRef.current.volume = volRef.current.value;
     setVolState(volRef.current.value);
+  };
+
+  const muteHandler = () => {
+    if (volRef.current.value === '0') {
+      volRef.current.value = 1;
+      setVolState(volRef.current.value);
+    } else {
+      volRef.current.value = 0;
+    }
+
+    volumeChangeHandler();
   };
 
   const timeUpdateHandler = () => {
@@ -99,16 +112,6 @@ const Player = (props) => {
     videoRef.current.currentTime = 0;
     videoRef.current.pause();
   });
-
-  const muteHandler = () => {
-    if (volRef.current.value === '0') {
-      volRef.current.value = 1;
-      setVolState(volRef.current.value);
-    } else {
-      volRef.current.value = 0;
-      setVolState(volRef.current.value);
-    }
-  };
 
   const fullscreenHandler = () => {
     // if (!props.source) return;
@@ -178,7 +181,7 @@ const Player = (props) => {
               />
             </div>
             <button onClick={fullscreenHandler}>
-              <i class='fas fa-expand'></i>
+              <i className='fas fa-expand'></i>
             </button>
           </div>
         </div>

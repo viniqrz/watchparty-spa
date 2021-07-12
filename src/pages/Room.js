@@ -61,8 +61,9 @@ const Room = () => {
   // }, 1000);
 
   const signInHandler = () => {
+    console.log(1);
     setUser(auth.signIn());
-    if (auth.user) history.push('/room/new');
+    console.log(1);
   };
 
   if (!room.state) {
@@ -87,10 +88,12 @@ const Room = () => {
                   <h1 style={{ margin: 3 + 'rem' }}>
                     You have to sign in in order to have access.
                   </h1>
-                  <Button onClick={signInHandler}>
-                    <i className='fab fa-google'></i>
-                    <span>Sign In with Google</span>
-                  </Button>
+                  <div onClick={signInHandler}>
+                    <Button>
+                      <i className='fab fa-google'></i>
+                      <span>Sign In with Google</span>
+                    </Button>
+                  </div>
                 </Container>
               )}
               {auth.user && (

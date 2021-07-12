@@ -4,16 +4,16 @@ import './MessagesList.css';
 
 import styled from 'styled-components';
 
-const IconContainer = styled.span`
-  background-color: #6fb4d6;
-  color: white;
-  padding: 0px 2px;
-  width: 1.4rem;
-  height: 1.4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+// const IconContainer = styled.span`
+//   background-color: #6fb4d6;
+//   color: white;
+//   padding: 0px 2px;
+//   width: 1.4rem;
+//   height: 1.4rem;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// `;
 
 const MessagesList = (props) => {
   const ulRef = useRef();
@@ -35,7 +35,7 @@ const MessagesList = (props) => {
     <div ref={ulRef} id='messages'>
       {props.messages.map((message) => {
         return (
-          <div className='message-container' ref={liRef}>
+          <div key={Math.random()} className='message-container' ref={liRef}>
             <p>
               {message.isOwner && (
                 <span className='icon-container'>

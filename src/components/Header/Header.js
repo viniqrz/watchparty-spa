@@ -12,12 +12,30 @@ const Header = () => {
     console.log(1);
   };
 
+  const normalizeName = (name) => {
+    if (name.length > 20) {
+      let normalized = '';
+
+      for (const i of name) {
+        if (i === ' ') {
+          return normalized;
+        }
+
+        normalized += i;
+      }
+
+      return name.slice(0, 19) + '...';
+    } else {
+      return name;
+    }
+  };
+
   return (
     <header className={classes['main-header']}>
       <h1>WatchParty</h1>
       {auth.user && (
         <div className={classes['user-greeting']}>
-          <h3>Welcome, {auth.user.name}.</h3>
+          <h3>Welcome, {normalizeName(auth.user.name)}</h3>
         </div>
       )}
       <nav>

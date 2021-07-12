@@ -93,6 +93,7 @@
   font-weight: normal;
   width: fit-content;
   animation: appear 1s forwards;
+  min-width: 18rem;
 }
 
 .main-header h1 {

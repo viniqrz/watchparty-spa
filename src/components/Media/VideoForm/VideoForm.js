@@ -8,7 +8,7 @@ const VideoForm = (props) => {
   const auth = useContext(UserContext);
   const inputRef = useRef('');
   const btnRef = useRef('');
-  const [source, setSource] = useState(false);
+  const [source, setSource] = useState([]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -19,9 +19,9 @@ const VideoForm = (props) => {
 
     props.onUpload(file);
 
-    socket.emit('uploaded', socket.user, file.name);
+    socket.emit('uploaded', auth.user, file.name);
 
-    setSource(file.name);
+    setSource([...source, { user: auth.user, fileName: file.name }]);
     // video.insertAdjacentHTML(
     //   'beforebegin',
     //   `
@@ -31,6 +31,10 @@ const VideoForm = (props) => {
 
     // video.load();
   };
+
+  socket.on('uploaded', (user, fileName) => {
+    setSource([...source, { user, fileName }]);
+  });
 
   setInterval(() => {
     const bgColor = `rgb(${Math.random() * 256},${Math.random() * 256},${
@@ -43,26 +47,18 @@ const VideoForm = (props) => {
 
   return (
     <div>
-      {source && (
+      {source.length >= 1 && (
         <div className={classes['info-container']}>
-          <div>
-            <img src={auth.user.photo} alt='avatar' />
-            <h2>
-              {auth.user.name} uploaded {source}
-            </h2>
-          </div>
-          {/* <div>
-            <img src={auth.user.photo} alt='avatar' />
-            <h2>
-              {auth.user.name} uploaded {source}
-            </h2>
-          </div>
-          <div>
-            <img src={auth.user.photo} alt='avatar' />
-            <h2>
-              {auth.user.name} uploaded {source}
-            </h2>
-          </div>  */}
+          {source.map((el) => {
+            return (
+              <div key={Math.random()}>
+                <img src={el.user.photo} alt='avatar' />
+                <h2>
+                  {el.user.name} uploaded {el.fileName}
+                </h2>
+              </div>
+            );
+          })}
         </div>
       )}
       <form className={classes['video-form']}>
@@ -79,6 +75,11 @@ const VideoForm = (props) => {
           className='submit'
           type='submit'
         >
+          <img
+            src='https://media4.giphy.com/media/VJScpfdeSNwuPdCL0W/200w.gif'
+            alt='colored parrot'
+            width='20'
+          />
           Special Button made by a Parrot
         </button>
       </form>

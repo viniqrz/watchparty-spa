@@ -81,7 +81,7 @@ const Chat = () => {
           onKeyPress={sendHandler}
           ref={inputRef}
           rows='3'
-          placeHolder='Send your message.'
+          placeholder='Send your message.'
         ></textarea>
         {/* <button onClick={sendHandler} type='submit'>
           Send

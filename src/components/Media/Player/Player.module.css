@@ -4,7 +4,7 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  margin-bottom: 3rem;
+  margin-bottom: 6rem;
   transition: all 1s;
 }
 
@@ -24,7 +24,7 @@
   width: 100%;
 }
 
-.player-controls-right:hover button {
+.player-controls-right button:hover {
   transform: scale(1.2);
 }
 
