@@ -15,6 +15,7 @@ const Chat = () => {
   const [showEmotes, setShowEmotes] = useState(false);
 
   const inputRef = useRef('');
+  const boardRef = useRef('');
 
   const socket = useContext(SocketContext);
   const auth = useContext(UserContext);
@@ -71,17 +72,12 @@ const Chat = () => {
   // };
 
   const selectEmoteHandler = (e) => {
-    if (e.target.alt === 'mustacheParrot') {
-      console.log(1);
-      inputRef.current.value += ':mustacheParrot:';
-      setInputState(inputState + ':mustacheParrot:');
-    }
-
-    if (e.target.alt === 'cartoonParrot') {
-      console.log(1);
-      inputRef.current.value += ':cartoonParrot:';
-      setInputState(inputState + ':cartoonParrot:');
-    }
+    [...boardRef.current.children].forEach((el) => {
+      if (el.alt === e.target.alt) {
+        inputRef.current.value += ':' + el.alt + ':';
+        setInputState(inputState + ':' + el.alt + ':');
+      }
+    });
   };
 
   return (
@@ -110,15 +106,33 @@ const Chat = () => {
           <i className='far fa-smile'></i>
         </button>
         {showEmotes && (
-          <div onClick={selectEmoteHandler} className={classes['emote-board']}>
+          <div
+            ref={boardRef}
+            onClick={selectEmoteHandler}
+            className={classes['emote-board']}
+          >
             <img
               src='https://media4.giphy.com/media/VJScpfdeSNwuPdCL0W/200w.gif'
               alt='mustacheParrot'
             />
 
             <img
-              src='https://i.pinimg.com/originals/14/c4/ec/14c4ec61a01b4ecdf2543dddb6ed6541.gif'
+              src='https://acegif.com/wp-content/uploads/2020/b72nv6/partyparrt-21.gif'
               alt='cartoonParrot'
+            />
+
+            <img
+              src='https://media4.giphy.com/media/XZOce3ICovscxHshz5/200w.gif'
+              alt='dealWithParrot'
+            />
+
+            <img
+              src='https://cdn2.scratch.mit.edu/get_image/user/60526075_60x60.png'
+              alt='cookParrot'
+            />
+            <img
+              src='https://i1.wp.com/emojis.slackmojis.com/emojis/images/1583350348/7963/mask-parrot.gif'
+              alt='maskParrot'
             />
           </div>
         )}

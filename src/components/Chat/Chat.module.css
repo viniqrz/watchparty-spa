@@ -56,6 +56,7 @@
 
 .emote-board img {
   width: 32px;
+  height: 32px;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.109);
   transition: all 0.2s;
