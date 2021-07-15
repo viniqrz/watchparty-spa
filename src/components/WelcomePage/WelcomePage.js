@@ -41,10 +41,12 @@ const WelcomePage = () => {
           Ex, ad cum sapiente reiciendis voluptate.
         </p>
         <div className={classes['sign-in']}>
-          <Button className={classes['btn-home']} onClick={signInHandler}>
-            <i className='fab fa-google'></i>
-            <span>Sign In with Google</span>
-          </Button>
+          <div onClick={signInHandler}>
+            <Button className={classes['btn-home']}>
+              <i className='fab fa-google'></i>
+              <span>Sign In with Google</span>
+            </Button>
+          </div>
         </div>
       </div>
     </div>
