@@ -6,6 +6,8 @@ export { SocketContext };
 
 const socket = io();
 
+console.log('context');
+
 const SocketProvider = (props) => {
   return (
     <SocketContext.Provider value={socket}>

@@ -1,11 +1,9 @@
 import classes from './Chat.module.css';
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState, useContext, useEffect } from 'react';
 
 import { SocketContext } from './../../contexts/SocketContext';
 import { UserContext } from './../../contexts/UserContext';
 import { RoomContext } from './../../contexts/RoomContext';
-
-import Button from '../UI/Button';
 
 import MessagesList from './MessagesList';
 
@@ -21,22 +19,28 @@ const Chat = () => {
   const auth = useContext(UserContext);
   const room = useContext(RoomContext);
 
-  socket.on('message', (content) => {
-    setMessages([...messages, content]);
+  socket.on('message', (serverChatData) => {
+    setMessages(serverChatData);
   });
 
-  socket.on('joined', (name) => {
-    setMessages([...messages, { author: name, content: 'joined.' }]);
+  socket.on('joined', (serverChatData) => {
+    setMessages(serverChatData);
   });
 
-  socket.on('left', (name) => {
-    setMessages([...messages, { author: name, content: 'left.' }]);
+  socket.on('left', (serverChatData) => {
+    setMessages(serverChatData);
   });
 
   const sendHandler = (e) => {
     if (e.key !== 'Enter') return;
 
     if (inputState.length < 1) return;
+
+    socket.emit('message', {
+      isOwner: auth.user.id === room.state.owner,
+      author: auth.user.name,
+      content: inputState,
+    });
 
     setMessages([
       ...messages,
@@ -46,11 +50,6 @@ const Chat = () => {
         content: inputState,
       },
     ]);
-    socket.emit('message', {
-      isOwner: auth.user.id === room.state.owner,
-      author: auth.user.name,
-      content: inputState,
-    });
 
     inputRef.current.value = '';
   };

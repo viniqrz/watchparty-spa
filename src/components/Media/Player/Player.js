@@ -15,6 +15,8 @@ const Player = (props) => {
   const [fillWidth, setFillWidth] = useState();
   const [volState, setVolState] = useState(1);
 
+  console.log('player');
+
   useEffect(() => {
     videoRef.current.load();
 
