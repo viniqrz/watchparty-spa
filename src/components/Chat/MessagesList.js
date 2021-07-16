@@ -51,35 +51,35 @@ const MessagesList = (props) => {
     }, 500);
   }
 
-  const getEmojis = (str) => {
-    let curStr = str;
-    let newArr = [];
+  // const getEmojis = (str) => {
+  //   let curStr = str;
+  //   let newArr = [];
 
-    Object.keys(emotes).forEach((el) => {
-      if (curStr.includes(emotes[el].shortcut)) {
-        let arr = curStr.split(emotes[el].shortcut);
+  //   Object.keys(emotes).forEach((el) => {
+  //     if (curStr.includes(emotes[el].shortcut)) {
+  //       let arr = curStr.split(emotes[el].shortcut);
 
-        for (let i = 0; i < arr.length + (arr.length - 1); i++) {
-          if (i % 2 === 0) {
-            newArr.push(arr[i]);
-          } else {
-            newArr.push(
-              <img style={{ width: 32 + 'px' }} src={emotes[el].src} alt='' />
-            );
-          }
-        }
+  //       for (let i = 0; i < arr.length + (arr.length - 1); i++) {
+  //         if (i % 2 === 0) {
+  //           newArr.push(arr[i]);
+  //         } else {
+  //           newArr.push(
+  //             <img style={{ width: 32 + 'px' }} src={emotes[el].src} alt='' />
+  //           );
+  //         }
+  //       }
 
-        curStr = newArr.join('');
-      }
-    });
+  //       curStr = newArr.join('');
+  //     }
+  //   });
 
-    if (newArr.length === 0) {
-      return str;
-    } else {
-      console.log(1);
-      return newArr;
-    }
-  };
+  //   if (newArr.length === 0) {
+  //     return str;
+  //   } else {
+  //     console.log(1);
+  //     return newArr;
+  //   }
+  // };
 
   return (
     <div ref={ulRef} id='messages'>
@@ -96,7 +96,7 @@ const MessagesList = (props) => {
                 </span>
               )}
               <b> {message.author}</b>
-              {getEmojis(message.content.trim())}
+              {message.content}
             </p>
             {/* <p>{message.content}</p> */}
           </div>
